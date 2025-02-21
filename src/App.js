@@ -2,6 +2,7 @@ import "./App.css";
 import qubitlogo from "./assets/Qubit_Logo.png";
 import sendimg from "./assets/send.svg";
 import usericon from './assets/user-icon.png'
+import settingsicon from './assets/settings.png'
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
         </div>
 
         <div className="lowerSide">
-          <p className="developperName">DESIGNED BY ZINE EDDINE ABDELADIM</p>
+          <div className='listItems'><img src ={settingsicon} alt='' className='listitemsimg'/>Settings</div>
         </div>
       </div>
 

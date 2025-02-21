@@ -39,7 +39,7 @@ body {
 .upperSide {
   padding: 2.5rem;
   border-bottom: 1px solid rgb(100, 100, 100);
-  height: 80%;
+  height: 90%;
 }
 
 .upperSideTop {
@@ -65,17 +65,27 @@ body {
 
 .lowerSide {
   padding: 2rem;
-  text-align: center;
+}
+
+.listItems{
+    margin: 0.75rem;
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+.listItems img{
+    width: 4rem;
+    object-fit: cover;
+    padding-right: 1rem;
 }
 
 .lowerSide p {
-  position: absolute;
-  bottom: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
 }
 
-.developperName {
-  align-self: flex-end;
-}
 
 .main {
   min-height: calc(100vh - 14rem);
@@ -124,7 +134,7 @@ body {
 
 .chats{
     overflow: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
     scroll-behavior: smooth;
     width: 100%;
     max-width: 70rem;
