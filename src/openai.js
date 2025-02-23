@@ -13,7 +13,7 @@ export async function sendMsgToOpenAi(message) {
     });
 
     const response = await client.chat.completions.create({
-      model: "gpt-4-turbo",
+      model: "gpt-4o",
       messages: [
           {
               role: "system",

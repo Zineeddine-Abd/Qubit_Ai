@@ -9,13 +9,23 @@ import { useState } from "react";
 function App() {
 
   const [input, setInput] = useState("");
+  const [messages, setMessages] = useState([
+    {
+      text: "Hello, I'm Qubit, your IT assistant chatbot",
+      isBot: true
+    }
+  ]);
 
   const handleSend = async() => {
 
     const response = await sendMsgToOpenAi(input);
-    console.log(response);
-  }
+    setMessages([
+      ...messages,
+      {text: input, isBot: false},
+      {text: response}
 
+    ])
+  }
 
   return (
     <div className="App">
@@ -35,19 +45,20 @@ function App() {
 
       <div className="main">
         <div className='chats'>
-          <div className='chat'>
-            <img src={usericon} className='chat-img' alt=''/><p className='txt'>lorem fvdfv srgfvd rgfq rgvsetdg dgsbtd dbgsdgb dtbsd dgbvsd dgbsdfb dbsdbf dbsdb dbsdtb dbsdbd bsdbsd bsdb sdbqd tbs dgbqd  bqd b qd b  qdbfsdghsyjsh dh bqd b </p> 
-          </div>
-          <div className='chat bot'>
-            <img src={qubitlogo} className='chat-img' alt=''/><p className='txt'>lorem fvdfv srgfvd rgfq rgvsetdg dgsbtd dbgsdgb dtbsd dgbvsd dgbsdfb dbsdbf dbsdb dbsdtb dbsdbd bsdbsd bsdb sdbqd tbs dgbqd  bqd b qd b  qdbfsdghsyjsh dh bqd bdzef ferg eqge qegerg qegqerg eqrgqergq ergeqgqeg qegqerg qergeqerg rgrqe gegeg eqrger gqegqeg eqvdbd bdqbdq brbrdbdq bqdbqdb erbqer beqbe rdbqdfbqd bdqbdqfb qdfbdqb dth yjsyjut jtuj ykyik yuk srj qeg z GZ gr zvbsf bsfqhdthqeth q h hfsrfvzrf fqrvqd dqbdbd gbdbd bgdgbd gbdgbdwgbwdbwd bdwb wdfbdfbwd fbdwfb dfbwd fbd fbd fbwdfbwdfbwd fbdf bdg hb dwgb wd bdw bwdfbdfbdfbw ddvsd fdgqdfvbqsfvbq rsvbsfb vqbqdfbqdfbq dfb qdfdfv qsfv sqr fvbqsfvbqsgbq dfbqfbghqryjsnrygq bqdfbqdhtehqetgrsb rhbqetbqrsh qetfhbqebqeth qetbqetbn ethutjtuekyfsjnsf nefqerg dgbqdbqetdbte hryjtu keilyo l fuomuofmfuomgulflckjnvnqzriosnvoivosfnqgn uib ggh h gghizrgliuqhgi h g rg zrgzrhgzrhghrg zrhozr grhgorhgohrsoghmqosrghomqsogihoqhrgo rg og hqs </p> 
-          </div>
+          {messages.map((message, i) =>
+              
+              <div key={i} className={message.isBot ? 'chat bot':'chat'}>
+                <img src={message.isBot ? qubitlogo:usericon} className={'chat-img'} alt=''/><p className='txt'>{message.text}</p> 
+              </div>
+            
+          )}
         </div>
 
         <div className='chat-footer'>
           <div className='inp'>
             <input type="text" placeholder="What do you want to know ?" value={input} onChange={(e)=>{setInput(e.target.value)}}/><button className="send" onClick={handleSend}><img src={sendimg} alt='send'/></button>
           </div>
-          <p>Qubit is designed to understand and respod to IT related topics, but it can produce some innaccurate informations.</p>
+          <p>Qubit is designed to understand and respod to IT related topics, but it may produce some innaccurate informations.</p>
         </div>
       </div>
     </div>
