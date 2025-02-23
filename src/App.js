@@ -3,8 +3,20 @@ import qubitlogo from "./assets/Qubit_Logo.png";
 import sendimg from "./assets/send.svg";
 import usericon from './assets/user-icon.png'
 import settingsicon from './assets/settings.png'
+import { sendMsgToOpenAi } from "./openai";
+import { useState } from "react";
 
 function App() {
+
+  const [input, setInput] = useState("");
+
+  const handleSend = async() => {
+
+    const response = await sendMsgToOpenAi(input);
+    console.log(response);
+  }
+
+
   return (
     <div className="App">
       <div className="sidebar">
@@ -33,7 +45,7 @@ function App() {
 
         <div className='chat-footer'>
           <div className='inp'>
-            <input type="text" placeholder="Write a prompt to Qubit"/><button className="send"><img src={sendimg} alt='send'/></button>
+            <input type="text" placeholder="What do you want to know ?" value={input} onChange={(e)=>{setInput(e.target.value)}}/><button className="send" onClick={handleSend}><img src={sendimg} alt='send'/></button>
           </div>
           <p>Qubit is designed to understand and respod to IT related topics, but it can produce some innaccurate informations.</p>
         </div>
