@@ -5,6 +5,8 @@ import usericon from './assets/user-icon.png'
 import settingsicon from './assets/settings.png'
 import { sendMsgToOpenAi } from "./openai";
 import { useState } from "react";
+import { useRef } from "react";
+import { useEffect } from "react";
 
 function App() {
 
@@ -16,15 +18,32 @@ function App() {
     }
   ]);
 
-  const handleSend = async() => {
+  const msgEnd = useRef(null);
 
-    const response = await sendMsgToOpenAi(input);
+  useEffect(() => {
+    msgEnd.current.scrollIntoView();
+  }, [messages])
+
+  const handleSend = async() => {
+    const text = input;
+    setInput('');
     setMessages([
       ...messages,
-      {text: input, isBot: false},
-      {text: response}
+      {text, isBot: false}
+    ])
+
+    const response = await sendMsgToOpenAi(text);
+
+    setMessages([
+      ...messages,
+      {text: text, isBot: false},
+      {text: response, isBot: true}
 
     ])
+  }
+
+  const handleEnter = async (e) => {
+    if (e.key == 'Enter') await handleSend();
   }
 
   return (
@@ -35,7 +54,7 @@ function App() {
             <img src={qubitlogo} alt="logo" className="logo" />
             <span className="brand">Qubit Ai</span>
           </div>
-          <button className="addButton">add a new chat</button>
+          <button className="addButton" onClick={() => {window.location.reload()}}>add a new chat</button>
         </div>
 
         <div className="lowerSide">
@@ -52,11 +71,12 @@ function App() {
               </div>
             
           )}
+          <div ref={msgEnd}/>
         </div>
 
         <div className='chat-footer'>
           <div className='inp'>
-            <input type="text" placeholder="What do you want to know ?" value={input} onChange={(e)=>{setInput(e.target.value)}}/><button className="send" onClick={handleSend}><img src={sendimg} alt='send'/></button>
+            <input type="text" placeholder="What do you want to know ?" value={input} onKeyDown={handleEnter} onChange={(e)=>{setInput(e.target.value)}}/><button className="send" onClick={handleSend}><img src={sendimg} alt='send'/></button>
           </div>
           <p>Qubit is designed to understand and respod to IT related topics, but it may produce some innaccurate informations.</p>
         </div>
