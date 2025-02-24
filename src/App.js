@@ -11,40 +11,90 @@ import { useEffect } from "react";
 
 function App() {
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState([
+  const [chats, setChats] = useState([
     {
-      text: "Hello, I'm Qubit, your IT assistant chatbot",
-      isBot: true,
+      id: 1,
+      name: "Chat 1",
+      messages: [
+        {
+          text: "Hello, I'm Qubit, your IT assistant chatbot",
+          isBot: true,
+        },
+      ],
     },
   ]);
 
-  const msgEnd = useRef(null);
+  const [activeChat, setActiveChat] = useState(1);
   const [loading, setLoading] = useState(false);
 
+  const msgEnd = useRef(null);
+
   useEffect(() => {
-    msgEnd.current.scrollIntoView();
-  }, [messages]);
+    msgEnd.current?.scrollIntoView();
+  }, [chats.find((chat) => chat.id === activeChat)?.messages]);
 
   const handleSend = async () => {
     const text = input;
     setInput("");
-    setMessages([...messages, { text, isBot: false }]);
+
+    const updatedChats = chats.map((chat) => {
+      if (chat.id === activeChat) {
+        return {
+          ...chat,
+          messages: [...chat.messages, { text, isBot: false }],
+        };
+      }
+      return chat;
+    });
+    setChats(updatedChats);
 
     setLoading(true);
 
-    const response = await sendMsgToOpenAi(text);
+    const response = await sendMsgToOpenAi(
+      text,
+      chats.find((chat) => chat.id === activeChat).messages
+    );
 
     setLoading(false);
 
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { text: response, isBot: true },
-    ]);
+    const updatedChatsWithResponse = updatedChats.map((chat) => {
+      if (chat.id === activeChat) {
+        return {
+          ...chat,
+          messages: [...chat.messages, { text: response, isBot: true }],
+        };
+      }
+      return chat;
+    });
+    setChats(updatedChatsWithResponse);
   };
 
   const handleEnter = async (e) => {
     if (e.key === "Enter") await handleSend();
   };
+
+  const addNewChat = () => {
+    const newChatId = chats.length + 1;
+    const newChat = {
+      id: newChatId,
+      name: `Chat ${newChatId}`,
+      messages: [
+        {
+          text: "Hello, I'm Qubit, your IT assistant chatbot",
+          isBot: true,
+        },
+      ],
+    };
+    setChats([...chats, newChat]);
+    setActiveChat(newChatId);
+  };
+
+  const switchChat = (chatId) => {
+    setActiveChat(chatId);
+  };
+
+  const activeChatMessages =
+    chats.find((chat) => chat.id === activeChat)?.messages || [];
 
   return (
     <div className="App">
@@ -58,11 +108,26 @@ function App() {
           <button
             className="addButton"
             onClick={() => {
-              window.location.reload();
+              addNewChat();
             }}
           >
             add a new chat
           </button>
+
+          <div className="chatList">
+            {chats.map((chat) => (
+              <div
+                key={chat.id}
+                className={`chatListItem ${
+                  chat.id === activeChat ? "active" : ""
+                }`}
+                onClick={() => switchChat(chat.id)}
+              >
+                {chat.name}
+              </div>
+            ))}
+          </div>
+
         </div>
 
         <div className="lowerSide">
@@ -75,7 +140,7 @@ function App() {
 
       <div className="main">
         <div className="chats">
-          {messages.map((message, i) => (
+          {activeChatMessages.map((message, i) => (
             <div key={i} className={message.isBot ? "chat bot" : "chat"}>
               <img
                 src={message.isBot ? qubitlogo : usericon}
