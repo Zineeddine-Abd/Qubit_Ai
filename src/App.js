@@ -19,7 +19,6 @@ function App() {
   ]);
 
   const msgEnd = useRef(null);
-
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -37,9 +36,8 @@ function App() {
 
     setLoading(false);
 
-    setMessages([
-      ...messages,
-      { text: text, isBot: false },
+    setMessages((prevMessages) => [
+      ...prevMessages,
       { text: response, isBot: true },
     ]);
   };
@@ -56,6 +54,7 @@ function App() {
             <img src={qubitlogo} alt="logo" className="logo" />
             <span className="brand">Qubit Ai</span>
           </div>
+
           <button
             className="addButton"
             onClick={() => {
@@ -81,7 +80,7 @@ function App() {
               <img
                 src={message.isBot ? qubitlogo : usericon}
                 className={"chat-img"}
-                alt=""
+                alt="icon"
               />
               <p className="txt">{message.text}</p>
             </div>
@@ -107,6 +106,7 @@ function App() {
                 setInput(e.target.value);
               }}
             />
+
             <button className="send" onClick={handleSend}>
               <img src={sendimg} alt="send" />
             </button>
