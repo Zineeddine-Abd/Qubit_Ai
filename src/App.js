@@ -31,7 +31,7 @@ function App() {
 
   useEffect(() => {
     msgEnd.current?.scrollIntoView();
-  }, [chats.find((chat) => chat.id === activeChat)?.messages]);
+  }, [chats.find((chat) => chat.id === activeChat)?.messages.length]);
 
   const handleSend = async () => {
     const text = input;
@@ -127,7 +127,6 @@ function App() {
               </div>
             ))}
           </div>
-
         </div>
 
         <div className="lowerSide">
