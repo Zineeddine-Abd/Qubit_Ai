@@ -9,7 +9,6 @@ import axios from "axios";
 import "./Main.css";
 
 const Main = ({ token, userId }) => {
-  console.log("Main component props - Token:", token, "User ID:", userId); // Debugging log
   const [input, setInput] = useState("");
   const [chats, setChats] = useState([
     {
@@ -27,7 +26,7 @@ const Main = ({ token, userId }) => {
   const [activeChat, setActiveChat] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  const msgEnd = useRef(null);
+  const msgEnd = useRef(null); //For Auto-Scrolling
 
   useEffect(() => {
     if (token) {
@@ -108,8 +107,7 @@ const Main = ({ token, userId }) => {
     setActiveChat(chatId);
   };
 
-  const activeChatMessages =
-    chats.find((chat) => chat.id === activeChat)?.messages || [];
+  const activeChatMessages = chats.find((chat) => chat.id === activeChat)?.messages || [];
 
   return (
     <div className="App">

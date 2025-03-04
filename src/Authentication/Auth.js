@@ -1,7 +1,6 @@
-// Auth.js
 import React, { useState } from "react";
 import Login from "./Login";
-import Register from "./SignUp";
+import Signup from "./SignUp";
 import "./Auth.css";
 
 const Auth = ({ onLogin }) => {
@@ -12,7 +11,7 @@ const Auth = ({ onLogin }) => {
       <div className="auth-box">
         {isRegistering ? (
           <>
-            <Register onToggle={() => setIsRegistering(false)} />
+            <Signup onToggle={() => setIsRegistering(false)} />
             <button
               onClick={() => setIsRegistering(false)}
               className="auth-toggle"

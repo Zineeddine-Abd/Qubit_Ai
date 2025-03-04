@@ -1,27 +1,22 @@
-// Login.js
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Login = ({ onLogin }) => {
-  const navigate = useNavigate(); // Add this line
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); //prevents the default behavior of the form submission (reload page)
   
     const payload = {
       username: username,
       password: password,
     };
   
-    console.log("Sending payload:", payload);
-  
     try {
       const response = await axios.post("http://localhost:5000/login", payload);
-  
-      console.log("Login response:", response.data);
   
       if (response.data.token) {
         onLogin(response.data.token, response.data.username);
@@ -29,6 +24,7 @@ const Login = ({ onLogin }) => {
       } else {
         console.error("Login failed: No token received");
       }
+      
     } catch (error) {
       console.error("Login error:", error);
     }

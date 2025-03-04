@@ -14,15 +14,15 @@ const App = () => {
   const [userId, setUserId] = useState(null);
 
   const handleLogin = (token, username) => {
-    setToken(token); // Set token in state
-    localStorage.setItem("token", token); // Store token in localStorage
-    const decodedToken = jwtDecode(token); // Decode the token
-    setUserId(decodedToken.userId); // Set user ID
+    setToken(token);
+    localStorage.setItem("token", token);
+    const decodedToken = jwtDecode(token);
+    setUserId(decodedToken.userId);
   };
 
   const handleLogout = () => {
     setToken(null);
-    localStorage.removeItem("token"); // Clear token from localStorage
+    localStorage.removeItem("token");
     setUserId(null);
   };
 

@@ -5,15 +5,13 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-console.log(process.env.JWT_SECRET)
-
 const app = express();
 
 app.use(express.json());
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 // Use secret from environment variables
-const SECRET_KEY = process.env.JWT_SECRET || "e6e1a3fd21c749535dc052bcc442d3e5ea4cf0763278fb69534014eec1ccb15d";
+const SECRET_KEY = process.env.JWT_SECRET;
 
 // MongoDB connection
 mongoose.connect("mongodb://localhost:27017/qubit", {
@@ -34,7 +32,6 @@ const userSchema = new mongoose.Schema({
   email: String,
   password: String,
 });
-
 const User = mongoose.model("User", userSchema);
 
 // Chat Schema
@@ -53,7 +50,6 @@ const chatSchema = new mongoose.Schema({
     },
   ],
 });
-
 const Chat = mongoose.model("Chat", chatSchema);
 
 // signup Route
@@ -73,6 +69,7 @@ app.post("/signup", async (req, res) => {
 
     await user.save();
     res.status(201).send("User registered successfully");
+
   } catch (error) {
     console.error("Signup error:", error);
     res.status(500).send("Server error");
@@ -91,17 +88,33 @@ app.post("/login", async (req, res) => {
     }
 
     // Generate JWT token using the secure secret key
-    const token = jwt.sign({ userId: user._id, username: user.username }, SECRET_KEY, { expiresIn: "1h" });
-
+    const token = jwt.sign(
+      { userId: user._id, username: user.username },
+      SECRET_KEY,
+      { expiresIn: "1h" }
+    );
 
     res.status(200).send({
       message: "Login successful",
       token: token,
       username: user.username,
     });
+
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).send("Server error");
+  }
+});
+
+// Load Chat Route
+app.get("/loadChat", async (req, res) => {
+  const { userId } = req.query;
+  const chat = await Chat.findOne({ userId });
+  
+  if (chat) {
+    res.json(chat.chats);
+  } else {
+    res.status(404).send("No chats found");
   }
 });
 
@@ -109,6 +122,7 @@ app.post("/login", async (req, res) => {
 app.post("/saveChat", async (req, res) => {
   const { userId, chats } = req.body;
   let chat = await Chat.findOne({ userId });
+
   if (!chat) {
     chat = new Chat({ userId, chats });
   } else {
@@ -116,17 +130,6 @@ app.post("/saveChat", async (req, res) => {
   }
   await chat.save();
   res.status(200).send("Chat saved");
-});
-
-// Load Chat Route
-app.get("/loadChat", async (req, res) => {
-  const { userId } = req.query;
-  const chat = await Chat.findOne({ userId });
-  if (chat) {
-    res.json(chat.chats);
-  } else {
-    res.status(404).send("No chats found");
-  }
 });
 
 app.listen(5000, () => {

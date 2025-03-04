@@ -1,4 +1,3 @@
-// Register.js
 import React, { useState } from "react";
 import axios from "axios";
 
@@ -22,6 +21,7 @@ const SignUp = ({ onToggle }) => {
       });
       alert("Registration successful!");
       onToggle();
+      
     } catch (error) {
       console.error(error);
     }
