@@ -1,14 +1,23 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import LoadingAnimation from "../Animations/LoadingAnimation";
-import qubitlogo from "../assets/Qubit_Logo.png";
+import qubitlogo from "../assets/qubit.png";
 import sendimg from "../assets/send_icon.png";
-import usericon from "../assets/user-icon.png";
+import usericon from "../assets/user.png";
 import settingsicon from "../assets/settings.png";
+import logoutIcon from '../assets/logout.png'
 import { sendMsgToOpenAi } from "../Controllers/openai";
 import axios from "axios";
 import "./Main.css";
 
-const Main = ({ token, userId }) => {
+const Main = ({ token, userId, onLogout }) => {
+  const navigate = useNavigate(); // Hook for navigation
+
+  const handleLogout = () => {
+    onLogout(); // Clear token and user data
+    navigate("/auth"); // Redirect to login page
+  };
+
   const [input, setInput] = useState("");
   const [chats, setChats] = useState([
     {
@@ -146,6 +155,10 @@ const Main = ({ token, userId }) => {
       </div>
 
       <div className="main">
+        <button className="logoutButton" onClick={handleLogout}>
+          Logout
+          <img src={logoutIcon} alt="logout" className="logoutIcon" />
+        </button>
         <div className="chats">
           {activeChatMessages.map((message, i) => (
             <div key={i} className={message.isBot ? "chat bot" : "chat"}>
