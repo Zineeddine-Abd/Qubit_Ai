@@ -1,0 +1,83 @@
+/* Auth.css */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background:  #020d21;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+}
+
+.auth-box {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 3rem; /* Increased padding */
+  border-radius: 20px; /* Larger border radius */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+  max-width: 500px; /* Increased max-width */
+  text-align: center;
+}
+
+.auth-box h2 {
+  margin-bottom: 2rem; /* Increased margin */
+  font-size: 2.5rem; /* Larger font size */
+  color: white;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Increased gap between inputs */
+}
+
+.auth-input {
+  padding: 1rem; /* Increased padding */
+  border: none;
+  border-radius: 12px; /* Larger border radius */
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 1.2rem; /* Larger font size */
+  outline: none;
+  transition: background 0.3s ease;
+}
+
+.auth-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.auth-input:focus {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.auth-button {
+  padding: 1rem; /* Increased padding */
+  border: none;
+  border-radius: 12px; /* Larger border radius */
+  background: #0d43cd;
+  color: white;
+  font-size: 1.2rem; /* Larger font size */
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.auth-button:hover {
+  background: #09339f;
+}
+
+.auth-toggle {
+  margin-top: 1.5rem; /* Increased margin */
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem; /* Larger font size */
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.auth-toggle:hover {
+  color: white;
+  text-decoration: underline;
+}

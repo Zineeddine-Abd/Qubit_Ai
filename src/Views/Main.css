@@ -1,0 +1,361 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html {
+    font-size: 62.5%;
+  }
+  
+  body {
+    background: rgb(3, 0, 31);
+    color: white;
+    font-family: "Poppins", sans-serif;
+    overflow: hidden;
+  }
+  
+  .App {
+    min-height: 100vh;
+    display: flex;
+    overflow: hidden;
+  }
+  
+  .sidebar {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    border-right: 2px solid rgb(100, 100, 100);
+    background: rgb(3, 0, 21);
+    color: white;
+  }
+  
+  .main {
+    flex: 9;
+  }
+  
+  .logo {
+    margin-right: 1rem;
+  }
+  
+  .brand {
+    font-size: 2rem;
+  }
+  
+  .upperSide {
+    padding: 2.5rem;
+    border-bottom: 2px solid rgb(100, 100, 100);
+  }
+  
+  .upperSideTop {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2.5rem;
+  }
+  
+  .addButton {
+    display: flex;
+    background: #0d43cd;
+    border: none;
+    color: white;
+    padding: 1.5rem;
+    font-size: 1.5rem;
+    width: 35rem;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-bottom: 3rem;
+    border-radius: 0.5rem;
+  }
+  
+  .addButton:hover {
+    background-color: #09339f;
+    cursor: pointer;
+  }
+
+  .logoutButton {
+    display: flex;
+    align-items: center;       
+    justify-content: center; 
+    gap: 10px;      
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #ff3d3d;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: 0.3s ease-in-out;
+  }
+  
+  .logoutButton:hover {
+    background-color: #cc0000;
+  }
+  
+  .logoutIcon {
+    width: 15px;
+    height: 15px;
+    object-fit: contain; 
+  }
+  
+  .chatList {
+    margin-top: 2rem;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    height: calc(100vh - 30rem);
+    padding-right: 1rem;
+  }
+  
+  /* Customize the scrollbar for Webkit browsers (Chrome, Safari, Edge) */
+  .chatList::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+  }
+  
+  .chatList::-webkit-scrollbar-track {
+    background: transparent; /* Transparent background for the track */
+  }
+  
+  .chatList::-webkit-scrollbar-thumb {
+    background-color: #888; /* Color of the scrollbar thumb */
+    border-radius: 4px; /* Rounded corners */
+  }
+  
+  .chatList::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Darker color on hover */
+  }
+  
+  /* Customize the scrollbar for Firefox */
+  .chatList {
+    scrollbar-width: thin; /* Thin scrollbar */
+    scrollbar-color: #888 transparent; /* Thumb and track color */
+  }
+  
+  .chatListItem {
+    padding: 1rem;
+    margin: 0.5rem 0;
+    background: rgb(30, 40, 62);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .chatListItem:hover {
+    background-color: rgb(40, 42, 70);
+  }
+  
+  .chatListItem.active {
+    background-color: #1345c49e;
+  }
+  
+  .lowerSide {
+    padding: 2rem;
+  }
+  
+  .listItems {
+    margin: 0.75rem;
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+  }
+  
+  .listItems img {
+    width: 4rem;
+    object-fit: cover;
+    padding-right: 1rem;
+  }
+  
+  .lowerSide p {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  
+  .main {
+    min-height: calc(100vh - 14rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 6rem 10rem;
+    margin-bottom: 0;
+  }
+  
+  .chat-footer {
+    margin-top: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+  }
+  
+  .inp {
+    padding: 0.5rem;
+    background: rgb(28, 30, 58, 1);
+    display: flex;
+    align-items: center;
+    border-radius: 0.5rem;
+    width: 68rem;
+  }
+  
+  .inp > input,
+  .send {
+    background: transparent;
+    border: none;
+  }
+  
+  .send {
+    height: 4rem;
+    width: 5rem;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 0%;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+  }
+  
+  .send > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .send:hover {
+    background-color: hsla(211, 100%, 35%, 0.361);
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
+    cursor: pointer;
+  }
+  
+  .inp > input {
+    width: calc(100% - 3rem);
+    outline: none;
+    padding: 1.25rem;
+    color: white;
+  }
+  
+  .chat-footer > p {
+    margin: 2rem 0;
+    color: hsla(0, 0%, 100%, 0.62);
+  }
+  
+  .chats {
+    overflow: hidden;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    width: 100%;
+    max-width: 70rem;
+    height: calc(100vh - 17rem);
+  }
+  
+  /* For Webkit Browsers (Chrome, Safari, Edge) */
+  .chats {
+    overflow-y: auto;
+    scroll-behavior: smooth;
+  }
+  
+  .chats::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+  }
+  
+  .chats::-webkit-scrollbar-track {
+    background: transparent; /* Transparent background */
+  }
+  
+  .chats::-webkit-scrollbar-thumb {
+    background-color: #888; /* Color of the scrollbar handle */
+    border-radius: 4px; /* Rounded corners */
+  }
+  
+  .chats::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Darker shade on hover */
+  }
+  
+  /* For Firefox */
+  .chats {
+    scrollbar-width: thin; /* Makes the scrollbar thinner */
+    scrollbar-color: #888 transparent;
+  }
+  
+  .chat {
+    margin: 1rem;
+    padding: 2rem 3rem;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: flex-start;
+    text-align: justify;
+  }
+  
+  .chat-img {
+    object-fit: cover;
+    width: 3.5rem;
+    margin-right: 2rem;
+    border-radius: 0.5rem;
+  }
+  
+  .bot {
+    background: rgb(30, 40, 62);
+    width: fit-content;
+    border-radius: 1rem;
+  }
+  
+  .txt {
+    line-height: 2.4rem;
+    color: rgb(230, 230, 230);
+  }
+  
+  .dots-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    padding: 1rem;
+  }
+  
+  .dot {
+    height: 5px;
+    width: 5px;
+    margin-right: 10px;
+    border-radius: 10px;
+    background-color: #b3d4fc;
+    animation: pulse 1.5s infinite ease-in-out;
+  }
+  
+  .dot:last-child {
+    margin-right: 0;
+  }
+  
+  .dot:nth-child(1) {
+    animation-delay: -0.3s;
+  }
+  
+  .dot:nth-child(2) {
+    animation-delay: -0.1s;
+  }
+  
+  .dot:nth-child(3) {
+    animation-delay: 0.1s;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(0.8);
+      background-color: #b3d4fc;
+      box-shadow: 0 0 0 0 rgba(178, 212, 252, 0.7);
+    }
+  
+    50% {
+      transform: scale(1.2);
+      background-color: #6793fb;
+      box-shadow: 0 0 0 10px rgba(178, 212, 252, 0);
+    }
+  
+    100% {
+      transform: scale(0.8);
+      background-color: #b3d4fc;
+      box-shadow: 0 0 0 0 rgba(178, 212, 252, 0.7);
+    }
+  }
+  
