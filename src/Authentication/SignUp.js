@@ -6,11 +6,14 @@ const SignUp = ({ onToggle }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      setError("Passwords do not match");
       return;
     }
     try {
@@ -19,11 +22,14 @@ const SignUp = ({ onToggle }) => {
         email,
         password,
       });
-      alert("Registration successful!");
       onToggle();
       
     } catch (error) {
-      console.error(error);
+      if (error.response && error.response.data.message) {
+        setError(error.response.data.message);
+      } else {
+        setError("Registration failed. Please try again.");
+      }
     }
   };
 
@@ -63,6 +69,7 @@ const SignUp = ({ onToggle }) => {
         <button type="submit" className="auth-button">
           Register
         </button>
+        {error && <p className="error-message">{error}</p>}
       </form>
     </>
   );

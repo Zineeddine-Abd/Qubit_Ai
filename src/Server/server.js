@@ -60,9 +60,15 @@ app.post("/signup", async (req, res) => {
     const { username, email, password } = req.body;
 
     // Check if the user already exists
-    const existingUser = await User.findOne({ username });
-    if (existingUser) {
-      return res.status(400).send("User already exists");
+    const existingUserName = await User.findOne({ username });
+    if (existingUserName) {
+      return res.status(400).json({ message: "Username already exists" });
+    }
+
+    // Check if the user already exists
+    const existingUserEmail = await User.findOne({ email });
+    if (existingUserEmail) {
+      return res.status(400).json({ message: "User already exists with this email" });
     }
 
     // Hash password
@@ -85,9 +91,9 @@ app.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ username });
 
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-      return res.status(400).send("Invalid credentials");
-    }
+    if (!user) return res.status(400).json({ message: "Username not found" });
+
+    if (!(await bcrypt.compare(password, user.password))) return res.status(400).json({ message: "Incorrect password" });
 
     // Generate JWT token using the secure secret key
     const token = jwt.sign(

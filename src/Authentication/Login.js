@@ -6,9 +6,11 @@ const Login = ({ onLogin }) => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault(); //prevents the default behavior of the form submission (reload page)
+    setError("");
   
     const payload = {
       username: username,
@@ -27,6 +29,11 @@ const Login = ({ onLogin }) => {
       
     } catch (error) {
       console.error("Login error:", error);
+      if (error.response) {
+        setError(error.response.data.message || "Something went wrong.");
+      } else {
+        setError("Unable to connect to the server.");
+      }
     }
   };
 
@@ -51,6 +58,7 @@ const Login = ({ onLogin }) => {
         <button type="submit" className="auth-button">
           Login
         </button>
+        {error && <p className="error-message">{error}</p>}
       </form>
     </>
   );
