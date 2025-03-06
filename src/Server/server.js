@@ -11,9 +11,7 @@ app.use(express.json());
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 // Use secret from environment variables
-const SECRET_KEY = process.env.JWT_SECRET || 'e1a3fd21c749535dc052bcc442d3e5ea4cf0763278fb69534014eec1ccb15d';
-console.log("JWT_SECRET:", SECRET_KEY);
-
+const SECRET_KEY = process.env.JWT_SECRET;
 
 // MongoDB connection
 mongoose.connect("mongodb://localhost:27017/qubit", {
