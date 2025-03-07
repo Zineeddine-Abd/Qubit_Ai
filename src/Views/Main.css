@@ -303,6 +303,7 @@
   .txt {
     line-height: 2.4rem;
     color: rgb(230, 230, 230);
+    white-space: pre-wrap;
   }
   
   .dots-container {
