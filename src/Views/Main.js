@@ -156,7 +156,6 @@ const Main = ({ token, userId, onLogout }) => {
 
       <div className="main">
         <button className="logoutButton" onClick={handleLogout}>
-          Logout
           <img src={logoutIcon} alt="logout" className="logoutIcon" />
         </button>
         <div className="chats">
