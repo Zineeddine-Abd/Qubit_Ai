@@ -47,6 +47,7 @@ const Login = ({ onLogin }) => {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           className="auth-input"
+          required
         />
         <input
           type="password"
@@ -54,6 +55,7 @@ const Login = ({ onLogin }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="auth-input"
+          required
         />
         <button type="submit" className="auth-button">
           Login

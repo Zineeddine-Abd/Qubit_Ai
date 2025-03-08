@@ -43,6 +43,7 @@ const SignUp = ({ onToggle }) => {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           className="auth-input"
+          required
         />
         <input
           type="email"
@@ -58,6 +59,7 @@ const SignUp = ({ onToggle }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="auth-input"
+          required
         />
         <input
           type="password"
@@ -65,6 +67,7 @@ const SignUp = ({ onToggle }) => {
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           className="auth-input"
+          required
         />
         <button type="submit" className="auth-button">
           Register
