@@ -127,7 +127,10 @@
   }
   
   .chatListItem {
-    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
     margin: 0.5rem 0;
     background: rgb(30, 40, 62);
     border-radius: 0.5rem;
@@ -142,6 +145,24 @@
   .chatListItem.active {
     background-color: #1345c49e;
   }
+  
+  .icons {
+    display: flex;
+    gap: 8px;
+  }
+
+  .icon {
+    width: 18px;
+    height: 18px;
+    margin-left: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  .icon:hover {
+    transform: scale(1.1);
+  }
+  
   
   .lowerSide {
     padding: 2rem;

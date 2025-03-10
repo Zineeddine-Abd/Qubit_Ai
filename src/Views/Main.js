@@ -6,6 +6,8 @@ import sendimg from "../assets/send_icon.png";
 import usericon from "../assets/user.png";
 import settingsicon from "../assets/settings.png";
 import logoutIcon from '../assets/logout.png'
+import editIcon from "../assets/edit.png";
+import deleteIcon from "../assets/delete.png";
 import { sendMsgToOpenAi } from "../Controllers/openai";
 import axios from "axios";
 import "./Main.css";
@@ -110,10 +112,33 @@ const Main = ({ token, userId, onLogout }) => {
     };
     setChats([...chats, newChat]);
     setActiveChat(newChatId);
+
+    axios.post("/saveChat", { userId, chats});
   };
 
   const switchChat = (chatId) => {
     setActiveChat(chatId);
+  };
+
+  const deleteChat = async (chatId) => {
+    try {
+      await axios.delete(`/deleteChat/${userId}/${chatId}`);
+      setChats(chats.filter((chat) => chat.id !== chatId));
+    } catch (error) {
+      console.error("Error deleting chat:", error);
+    }
+  };
+  
+  const editChatName = async (chatId) => {
+    const newName = prompt("Enter new chat name:");
+    if (!newName) return;
+  
+    try {
+      await axios.put(`/editChat/${userId}/${chatId}`, { name: newName });
+      setChats(chats.map((chat) => (chat.id === chatId ? { ...chat, name: newName } : chat)));
+    } catch (error) {
+      console.error("Error editing chat:", error);
+    }
   };
 
   const activeChatMessages = chats.find((chat) => chat.id === activeChat)?.messages || [];
@@ -140,7 +165,11 @@ const Main = ({ token, userId, onLogout }) => {
                 }`}
                 onClick={() => switchChat(chat.id)}
               >
-                {chat.name}
+                <span>{chat.name}</span>
+                <div className="icons">
+                  <img src={editIcon} alt="Edit" className="icon" onClick={(e) => { e.stopPropagation(); editChatName(chat.id); }} />
+                  <img src={deleteIcon} alt="Delete" className="icon" onClick={(e) => { e.stopPropagation(); deleteChat(chat.id); }} />
+                </div>
               </div>
             ))}
           </div>

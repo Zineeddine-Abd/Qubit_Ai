@@ -138,6 +138,45 @@ app.post("/saveChat", async (req, res) => {
   res.status(200).send("Chat saved");
 });
 
+// Edit Chat Name
+app.put("/editChat/:userId/:chatId", async (req, res) => {
+  const { userId, chatId } = req.params;
+  const { name } = req.body;
+
+  try {
+    const chat = await Chat.findOne({ userId });
+    if (!chat) return res.status(404).json({ message: "Chat not found" });
+
+    const chatToEdit = chat.chats.find((c) => c.id === parseInt(chatId));
+    if (!chatToEdit) return res.status(404).json({ message: "Chat not found" });
+
+    chatToEdit.name = name;
+    await chat.save();
+    res.status(200).json({ message: "Chat renamed successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// Delete Chat
+app.delete("/deleteChat/:userId/:chatId", async (req, res) => {
+  const { userId, chatId } = req.params;
+
+  try {
+    const chat = await Chat.findOne({ userId });
+    if (!chat) return res.status(404).json({ message: "Chat not found" });
+
+    chat.chats = chat.chats.filter((c) => c.id !== parseInt(chatId));
+    await chat.save();
+    res.status(200).json({ message: "Chat deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
 app.listen(5000, () => {
   console.log(`Server running`);
 });
