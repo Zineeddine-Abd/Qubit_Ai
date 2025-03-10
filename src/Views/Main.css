@@ -179,7 +179,11 @@
   
   
   .lowerSide {
-    padding: 2rem;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    flex : 2;
+    align-items: center;
   }
   
   .listItems {

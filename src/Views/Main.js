@@ -138,8 +138,6 @@ const Main = ({ token, userId, onLogout }) => {
 
   const [hoveredEditChat, setHoveredEditChat] = useState(null);
   const [hoveredDeleteChat, setHoveredDeleteChat] = useState(null);
-  const [isEditHovered, setEditHovered] = useState(false);
-  const [isDeleteHovered, setDeleteHovered] = useState(false);
 
   const MAX_CHARACTERS = 50;
 
