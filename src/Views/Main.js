@@ -110,10 +110,12 @@ const Main = ({ token, userId, onLogout }) => {
         },
       ],
     };
-    setChats([...chats, newChat]);
+
+    const updatedChats = [...chats, newChat]
+    setChats(updatedChats);
     setActiveChat(newChatId);
 
-    axios.post("/saveChat", { userId, chats});
+    axios.post("/saveChat", { userId, chats: updatedChats});
   };
 
   const switchChat = (chatId) => {
