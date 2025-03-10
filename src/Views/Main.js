@@ -6,6 +6,7 @@ import sendimg from "../assets/send_icon.png";
 import usericon from "../assets/user.png";
 import settingsicon from "../assets/settings.png";
 import logoutIcon from '../assets/logout.png'
+import logoutHoveredIcon from '../assets/logout_red.png'
 import editIcon from "../assets/edit.png";
 import deleteIcon from "../assets/delete.png";
 import deleteHoverdIcon from "../assets/delete_hoverd.png";
@@ -17,6 +18,7 @@ import "./Main.css";
 const Main = ({ token, userId, onLogout }) => {
   const navigate = useNavigate(); // Hook for navigation
 
+  const [isHoveredLogout, setHoveredLogout] = useState(false);
   const handleLogout = () => {
     onLogout(); // Clear token and user data
     navigate("/auth"); // Redirect to login page
@@ -241,9 +243,15 @@ const Main = ({ token, userId, onLogout }) => {
       </div>
 
       <div className="main">
-        <button className="logoutButton" onClick={handleLogout}>
-          <img src={logoutIcon} alt="logout" className="logoutIcon" />
-        </button>
+          <img
+            src={isHoveredLogout ? logoutHoveredIcon : logoutIcon}
+            alt="Logout"
+            className="logoutIcon"
+            onClick={(e) => handleLogout()}
+            onMouseEnter={() => setHoveredLogout(true)} 
+            onMouseLeave={() => setHoveredLogout(false)} 
+            >    
+            </img>
         <div className="chats">
           {activeChatMessages.map((message, i) => (
             <div key={i} className={message.isBot ? "chat bot" : "chat"}>

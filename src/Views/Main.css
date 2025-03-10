@@ -72,26 +72,19 @@
     background-color: #09339f;
     cursor: pointer;
   }
-
-  .logoutButton {
+  
+  .logoutIcon {
     position: absolute;
     top: 20px;
     right: 20px;
-    background: none;
-    border: none;
     cursor: pointer;
-    padding: 0;
-  }
-  
-  .logoutIcon {
     width: 25px;
     height: auto;
-    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+    transition: transform 0.2s ease;
   }
 
-  .logoutButton:hover {
+  .logoutIcon:hover {
     transform: scale(1.1); 
-    opacity: 0.9;
   }
   
   .chatList {
