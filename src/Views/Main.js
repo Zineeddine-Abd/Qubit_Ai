@@ -8,6 +8,8 @@ import settingsicon from "../assets/settings.png";
 import logoutIcon from '../assets/logout.png'
 import editIcon from "../assets/edit.png";
 import deleteIcon from "../assets/delete.png";
+import deleteHoverdIcon from "../assets/delete_hoverd.png";
+import editHoverdIcon from "../assets/edit_hoverd.png";
 import { sendMsgToOpenAi } from "../Controllers/openai";
 import axios from "axios";
 import "./Main.css";
@@ -130,19 +132,39 @@ const Main = ({ token, userId, onLogout }) => {
       console.error("Error deleting chat:", error);
     }
   };
-  
-  const editChatName = async (chatId) => {
-    const newName = prompt("Enter new chat name:");
-    if (!newName) return;
+
+  const [editingChatId, setEditingChatId] = useState(null);
+  const [newChatName, setNewChatName] = useState("");
+
+  const [hoveredEditChat, setHoveredEditChat] = useState(null);
+  const [hoveredDeleteChat, setHoveredDeleteChat] = useState(null);
+  const [isEditHovered, setEditHovered] = useState(false);
+  const [isDeleteHovered, setDeleteHovered] = useState(false);
+
+  const MAX_CHARACTERS = 50;
+
+
+  const startEditingChat = (chatId, currentName) => {
+    setEditingChatId(chatId);
+    setNewChatName(currentName);
+  };
+
+  const saveChatName = async (chatId) => {
+    if (!newChatName.trim()) return; // Prevent empty names
   
     try {
-      await axios.put(`/editChat/${userId}/${chatId}`, { name: newName });
-      setChats(chats.map((chat) => (chat.id === chatId ? { ...chat, name: newName } : chat)));
+      await axios.put(`/editChat/${userId}/${chatId}`, { name: newChatName });
+  
+      setChats(chats.map((chat) => 
+        chat.id === chatId ? { ...chat, name: newChatName } : chat
+      ));
+  
+      setEditingChatId(null);
     } catch (error) {
       console.error("Error editing chat:", error);
     }
   };
-
+  
   const activeChatMessages = chats.find((chat) => chat.id === activeChat)?.messages || [];
 
   return (
@@ -162,15 +184,50 @@ const Main = ({ token, userId, onLogout }) => {
             {chats.map((chat) => (
               <div
                 key={chat.id}
-                className={`chatListItem ${
-                  chat.id === activeChat ? "active" : ""
-                }`}
+                className={`chatListItem ${chat.id === activeChat ? "active" : ""}`}
                 onClick={() => switchChat(chat.id)}
               >
-                <span>{chat.name}</span>
+                {editingChatId === chat.id ? (
+                  <input
+                    type="text"
+                    value={newChatName}
+                    autoFocus
+                    onChange={(e) => setNewChatName(e.target.value)}
+                    onBlur={() => saveChatName(chat.id)} // Save when clicking outside
+                    maxLength={MAX_CHARACTERS}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") saveChatName(chat.id);
+                      if (e.key === "Escape") setEditingChatId(null); // Cancel editing
+                    }}
+                    className="edit-input"
+                  />
+                ) : (
+                  <span>{chat.name}</span>
+                )}
+
                 <div className="icons">
-                  <img src={editIcon} alt="Edit" className="icon" onClick={(e) => { e.stopPropagation(); editChatName(chat.id); }} />
-                  <img src={deleteIcon} alt="Delete" className="icon" onClick={(e) => { e.stopPropagation(); deleteChat(chat.id); }} />
+                  <img
+                    src={hoveredEditChat === chat.id ? editHoverdIcon : editIcon}
+                    alt="Edit"
+                    className="icon"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      startEditingChat(chat.id, chat.name);
+                    }}
+                    onMouseEnter={() => setHoveredEditChat(chat.id)} 
+                    onMouseLeave={() => setHoveredEditChat(null)} 
+                  />
+                  <img
+                    src={hoveredDeleteChat === chat.id ? deleteHoverdIcon : deleteIcon}
+                    alt="Delete"
+                    className="icon"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deleteChat(chat.id);
+                    }}
+                    onMouseEnter={() => setHoveredDeleteChat(chat.id)} 
+                    onMouseLeave={() => setHoveredDeleteChat(null)} 
+                  />
                 </div>
               </div>
             ))}
