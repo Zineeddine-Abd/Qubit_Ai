@@ -12,15 +12,21 @@ const SignUp = ({ onToggle }) => {
     e.preventDefault();
     setError("");
 
-    if (password !== confirmPassword) {
+    // Trim spaces from all fields before submission
+    const trimmedUsername = username.trim();
+    const trimmedEmail = email.trim();
+    const trimmedPassword = password.trim();
+    const trimmedConfirmPassword = confirmPassword.trim();
+
+    if (trimmedPassword !== trimmedConfirmPassword) {
       setError("Passwords do not match");
       return;
     }
     try {
       await axios.post("http://localhost:5000/signup", {
-        username,
-        email,
-        password,
+        username: trimmedUsername,
+        email: trimmedEmail,
+        password: trimmedPassword,
       });
       onToggle();
       
