@@ -37,38 +37,57 @@ const SignUp = ({ onToggle }) => {
     <>
       <h2>Register</h2>
       <form onSubmit={handleSubmit} className="auth-form">
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="auth-input"
-          required
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="auth-input"
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="auth-input"
-          required
-        />
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          className="auth-input"
-          required
-        />
+      <div className="input-group">
+          <label htmlFor="Username">Username :</label>
+          <input
+            id="Username"
+            type="text"
+            placeholder="Ex. LocknWait"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="auth-input"
+            required
+          />
+        </div>
+
+        <div className="input-group">
+          <label htmlFor="Email">Email :</label>
+          <input
+            id="Email"
+            type="email"
+            placeholder="Ex. user@gmail.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="auth-input"
+            required
+          />
+        </div>
+
+        <div className="input-group">
+          <label htmlFor="Password">Password :</label>
+          <input
+            id="Password"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="auth-input"
+            required
+          />
+        </div>
+
+        <div className="input-group">
+          <label htmlFor="ConfirmPassword">Confirm Password :</label>
+          <input
+            id="ConfirmPassword"
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            className="auth-input"
+            required
+          />
+        </div>
         <button type="submit" className="auth-button">
           Register
         </button>
