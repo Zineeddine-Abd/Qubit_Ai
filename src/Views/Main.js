@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import LoadingAnimation from "../Animations/LoadingAnimation";
 import qubitlogo from "../assets/qubit.png";
 import sendimg from "../assets/send_icon.png";
+import sendimgDisabled from '../assets/send-icon-disabled.png'
 import usericon from "../assets/user.png";
 import settingsicon from "../assets/settings.png";
 import logoutIcon from '../assets/logout.png'
@@ -285,8 +286,8 @@ const Main = ({ token, userId, onLogout }) => {
               }}
             />
 
-            <button className="send" onClick={handleSend}>
-              <img src={sendimg} alt="send" />
+            <button className={!input.trim() ? "send-disabled" : "send"} onClick={handleSend} disabled={!input.trim()}>
+              <img src={!input.trim() ? sendimgDisabled : sendimg} alt="send" />
             </button>
           </div>
           <p>
