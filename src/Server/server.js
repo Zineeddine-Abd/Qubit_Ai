@@ -39,7 +39,7 @@ const chatSchema = new mongoose.Schema({
   userId: mongoose.Schema.Types.ObjectId,
   chats: [
     {
-      id: Number,
+      id: { type: String, required: true },
       name: String,
       messages: [
         {

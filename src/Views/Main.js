@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
 import LoadingAnimation from "../Animations/LoadingAnimation";
 import qubitlogo from "../assets/qubit.png";
 import sendimg from "../assets/send_icon.png";
@@ -21,14 +22,19 @@ const Main = ({ token, userId, onLogout }) => {
 
   const [isHoveredLogout, setHoveredLogout] = useState(false);
   const handleLogout = () => {
-    onLogout(); // Clear token and user data
-    navigate("/auth"); // Redirect to login page
+    setActiveChat(null);
+    setInput("");
+    setLoading(false);
+    onLogout(); 
+    axios.post("/saveChat", { userId, chats});
+    
+    navigate("/auth");
   };
 
   const [input, setInput] = useState("");
   const [chats, setChats] = useState([
     {
-      id: 1,
+      id: uuidv4(),
       name: "Chat 1",
       messages: [
         {
@@ -39,8 +45,16 @@ const Main = ({ token, userId, onLogout }) => {
     },
   ]);
 
-  const [activeChat, setActiveChat] = useState(1);
+  const [activeChat, setActiveChat] = useState(null);
   const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    if (chats.length > 0 && activeChat === null) {
+      setActiveChat(chats[0].id);
+    } else if(chats.length === 0) {
+        setActiveChat(null);
+    }
+  }, [chats]);
+  
 
   const msgEnd = useRef(null); //For Auto-Scrolling
 
@@ -59,10 +73,11 @@ const Main = ({ token, userId, onLogout }) => {
 
   useEffect(() => {
     msgEnd.current?.scrollIntoView();
-  }, [chats.find((chat) => chat.id === activeChat)?.messages.length]);
+  }, [chats.find((chat) => chat.id === activeChat)?.messages?.length]);
 
   const handleSend = async () => {
-    const text = input;
+    const text = input.trim();
+    if (!text || activeChat === null) return;
     setInput("");
 
     const updatedChats = chats.map((chat) => {
@@ -104,10 +119,10 @@ const Main = ({ token, userId, onLogout }) => {
   };
 
   const addNewChat = () => {
-    const newChatId = chats.length + 1;
+    const newChatId = uuidv4();
     const newChat = {
       id: newChatId,
-      name: `Chat ${newChatId}`,
+      name: `Chat ${chats.length + 1}`,
       messages: [
         {
           text: "Hello, I'm Qubit, your IT assistant chatbot",
@@ -131,6 +146,7 @@ const Main = ({ token, userId, onLogout }) => {
     try {
       await axios.delete(`/deleteChat/${userId}/${chatId}`);
       setChats(chats.filter((chat) => chat.id !== chatId));
+      setActiveChat(null)
     } catch (error) {
       console.error("Error deleting chat:", error);
     }
@@ -251,8 +267,7 @@ const Main = ({ token, userId, onLogout }) => {
             onClick={(e) => handleLogout()}
             onMouseEnter={() => setHoveredLogout(true)} 
             onMouseLeave={() => setHoveredLogout(false)} 
-            >    
-            </img>
+          />    
         <div className="chats">
           {activeChatMessages.map((message, i) => (
             <div key={i} className={message.isBot ? "chat bot" : "chat"}>
