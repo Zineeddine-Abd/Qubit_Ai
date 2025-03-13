@@ -32,18 +32,7 @@ const Main = ({ token, userId, onLogout }) => {
   };
 
   const [input, setInput] = useState("");
-  const [chats, setChats] = useState([
-    {
-      id: uuidv4(),
-      name: "Chat 1",
-      messages: [
-        {
-          text: "Hello, I'm Qubit, your IT assistant chatbot",
-          isBot: true,
-        },
-      ],
-    },
-  ]);
+  const [chats, setChats] = useState([]);
 
   const [activeChat, setActiveChat] = useState(null);
   const [loading, setLoading] = useState(false);
