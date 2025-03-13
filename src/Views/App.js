@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -10,8 +11,21 @@ import Main from "./Main";
 import { jwtDecode } from "jwt-decode";
 
 const App = () => {
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem("token"));
   const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        setUserId(decodedToken.userId);
+      } catch (error) {
+        console.error("Invalid token:", error);
+        setToken(null);
+        localStorage.removeItem("token");
+      }
+    }
+  }, [token]);
 
   const handleLogin = (token, username) => {
     setToken(token);

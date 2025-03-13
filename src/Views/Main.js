@@ -18,7 +18,7 @@ import axios from "axios";
 import "./Main.css";
 
 const Main = ({ token, userId, onLogout }) => {
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
 
   const [isHoveredLogout, setHoveredLogout] = useState(false);
   const handleLogout = () => {
@@ -148,7 +148,6 @@ const Main = ({ token, userId, onLogout }) => {
   const [hoveredDeleteChat, setHoveredDeleteChat] = useState(null);
 
   const MAX_CHARACTERS = 50;
-
 
   const startEditingChat = (chatId, currentName) => {
     setEditingChatId(chatId);
