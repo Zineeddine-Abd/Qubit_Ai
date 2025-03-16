@@ -147,7 +147,7 @@ app.put("/editChat/:userId/:chatId", async (req, res) => {
     const chat = await Chat.findOne({ userId });
     if (!chat) return res.status(404).json({ message: "Chat not found" });
 
-    const chatToEdit = chat.chats.find((c) => c.id === parseInt(chatId));
+    const chatToEdit = chat.chats.find((c) => c.id === chatId);
     if (!chatToEdit) return res.status(404).json({ message: "Chat not found" });
 
     chatToEdit.name = name;
