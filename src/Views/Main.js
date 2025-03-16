@@ -169,6 +169,13 @@ const Main = ({ token, userId, onLogout }) => {
       console.error("Error editing chat:", error);
     }
   };
+
+  const [isSettingsOpen, setSettingsOpen] = useState(false); // State for settings sidebar
+
+  const toggleSettings = () => {
+    setSettingsOpen(!isSettingsOpen);
+  };
+
   
   const activeChatMessages = chats.find((chat) => chat.id === activeChat)?.messages || [];
 
@@ -240,12 +247,27 @@ const Main = ({ token, userId, onLogout }) => {
         </div>
 
         <div className="lowerSide">
-          <div className="listItems">
-            <img src={settingsicon} alt="" className="listitemsimg" />
+          <div className="settings" onClick={toggleSettings}>
+            <img src={settingsicon} alt="" className="settingsimg"/>
             Settings
           </div>
         </div>
       </div>
+
+      <div className={`settings-sidebar ${isSettingsOpen ? "open" : ""}`}>
+        <div className="settings-header">
+          <h2>Settings</h2>
+          <button className="close-btn" onClick={toggleSettings}>&times;</button>
+        </div>
+        <div className="settings-content">
+          <label>Username</label>
+          <input type="text" placeholder="Change username..." />
+
+          <label>Premium Key</label>
+          <input type="text" placeholder="Enter key..." />
+        </div>
+      </div>
+
 
       <div className="main">
           <img
