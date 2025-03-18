@@ -16,6 +16,7 @@ import editHoverdIcon from "../assets/edit_hoverd.png";
 import { sendMsgToOpenAi } from "../Controllers/openai";
 import axios from "axios";
 import "./Main.css";
+import Sidebar from "../Components/Sidebar";
 
 const Main = ({ token, userId, onLogout }) => {
   const navigate = useNavigate();
@@ -169,15 +170,14 @@ const Main = ({ token, userId, onLogout }) => {
       console.error("Error editing chat:", error);
     }
   };
+  
+  const activeChatMessages = chats.find((chat) => chat.id === activeChat)?.messages || [];
 
   const [isSettingsOpen, setSettingsOpen] = useState(false); // State for settings sidebar
-
+    
   const toggleSettings = () => {
     setSettingsOpen(!isSettingsOpen);
   };
-
-  
-  const activeChatMessages = chats.find((chat) => chat.id === activeChat)?.messages || [];
 
   return (
     <div className="App">
@@ -246,6 +246,8 @@ const Main = ({ token, userId, onLogout }) => {
           </div>
         </div>
 
+        <Sidebar isSettingsOpen={isSettingsOpen} toggleSettings={toggleSettings} />
+
         <div className="lowerSide">
           <div className="settings" onClick={toggleSettings}>
             <img src={settingsicon} alt="" className="settingsimg"/>
@@ -253,21 +255,6 @@ const Main = ({ token, userId, onLogout }) => {
           </div>
         </div>
       </div>
-
-      <div className={`settings-sidebar ${isSettingsOpen ? "open" : ""}`}>
-        <div className="settings-header">
-          <h2>Settings</h2>
-          <button className="close-btn" onClick={toggleSettings}>&times;</button>
-        </div>
-        <div className="settings-content">
-          <label>Username</label>
-          <input type="text" placeholder="Change username..." />
-
-          <label>Premium Key</label>
-          <input type="text" placeholder="Enter key..." />
-        </div>
-      </div>
-
 
       <div className="main">
           <img
