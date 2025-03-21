@@ -1,0 +1,87 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #020d21;
+    color: white;
+    text-align: center;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.qubit-logo {
+    width: 80px;
+    height: 80px;
+    margin-right: 15px;
+}
+
+.qubit-title {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.button-container {
+    margin-top: 20px;
+}
+
+.auth-button {
+    display: inline-block;
+    padding: 12px 24px;
+    margin: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+    text-align: center;
+    min-width: 120px;
+}
+
+.login-button {
+    background-color: #145ba7 !important;
+    color: white !important;
+}
+
+.login-button:hover {
+    background-color: #104680!important;
+}
+
+.signup-button {
+    background-color: #ffffff !important;
+    color: rgb(0, 0, 0) !important;
+}
+
+.signup-button:hover {
+    background-color: #cecece !important;
+}
+
+
+.footer {
+    position: absolute;
+    bottom: 20px;
+    text-align: center;
+}
+
+.footer p {
+    margin-bottom: 10px;
+}
+
+.social-links a {
+    margin: 0 10px;
+}
+
+.social-links img {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.social-links img:hover {
+    transform: scale(1.1);
+}

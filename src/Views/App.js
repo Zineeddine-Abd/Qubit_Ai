@@ -6,6 +6,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import Home from "./Home"; // Import Home component
 import Auth from "../Authentication/Auth";
 import Main from "./Main";
 import { jwtDecode } from "jwt-decode";
@@ -43,8 +44,10 @@ const App = () => {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Home />} />
+
         <Route
-          path="/"
+          path="/main"
           element={
             token ? (
               <Main token={token} userId={userId} onLogout={handleLogout} />
@@ -53,11 +56,10 @@ const App = () => {
             )
           }
         />
+
         <Route
           path="/auth"
-          element={
-            !token ? <Auth onLogin={handleLogin} /> : <Navigate to="/" />
-          }
+          element={!token ? <Auth onLogin={handleLogin} /> : <Navigate to="/main" />}
         />
       </Routes>
     </Router>

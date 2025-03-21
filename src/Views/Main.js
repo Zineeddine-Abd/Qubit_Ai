@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 import LoadingAnimation from "../Animations/LoadingAnimation";
 import qubitlogo from "../assets/Logo_No_BG.png";
-import qubitlogoBg from "../assets/Logo_BG.png"
 import sendimg from "../assets/send_icon.png";
 import sendimgDisabled from '../assets/send-icon-disabled.png'
 import usericon from "../assets/user.png";
