@@ -36,6 +36,8 @@
   
   .logo {
     margin-right: 1rem;
+    width: 40px;
+    height: auto;
   }
   
   .brand {
