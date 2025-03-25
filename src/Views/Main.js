@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect} from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
+import ReactMarkdown from "react-markdown";
 import LoadingAnimation from "../Animations/LoadingAnimation";
 import qubitlogo from "../assets/Logo_No_BG.png";
 import sendimg from "../assets/send_icon.png";
@@ -279,7 +280,7 @@ const Main = ({ token, userId, onLogout }) => {
                 className={"chat-img"}
                 alt="icon"
               />
-              <p className="txt">{message.text}</p>
+              <p className="txt"><ReactMarkdown>{message.text}</ReactMarkdown></p>
             </div>
           ))}
 
