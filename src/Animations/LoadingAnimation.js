@@ -1,3 +1,5 @@
+import './laoding.css'
+
 const LoadingAnimation = () => {
   return (
     <section className="dots-container">

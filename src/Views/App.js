@@ -6,7 +6,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import Home from "./Home"; // Import Home component
+import Home from "./Home";
 import Auth from "../Authentication/Auth";
 import Main from "./Main";
 import { jwtDecode } from "jwt-decode";

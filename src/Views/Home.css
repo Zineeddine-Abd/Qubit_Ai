@@ -9,6 +9,15 @@
     text-align: center;
 }
 
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; 
+    flex-grow: 1;
+    text-align: center;
+  }
+
 .logo-container {
     display: flex;
     align-items: center;
@@ -16,13 +25,13 @@
 }
 
 .qubit-logo {
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: auto;
     margin-right: 15px;
 }
 
 .qubit-title {
-    font-size: 36px;
+    font-size: 50px;
     font-weight: bold;
 }
 
@@ -36,7 +45,9 @@
     margin: 10px;
     border: none;
     border-radius: 8px;
-    font-size: 16px;
+    font-family:Helvetica !important;
+    font-size: 20px !important;
+    font-style: bold !important;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease-in-out;
     text-align: center;
@@ -63,13 +74,15 @@
 
 
 .footer {
-    position: absolute;
-    bottom: 20px;
+    justify-content: flex-end;
     text-align: center;
+    margin-bottom: 1.5rem;
 }
 
 .footer p {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    font-size: 15px;
+    font-style: bold;
 }
 
 .social-links a {
@@ -77,8 +90,8 @@
 }
 
 .social-links img {
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     transition: transform 0.3s ease-in-out;
 }
 

@@ -1,18 +1,19 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useRef, useEffect} from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 import LoadingAnimation from "../Animations/LoadingAnimation";
 import qubitlogo from "../assets/Logo_No_BG.png";
 import sendimg from "../assets/send_icon.png";
 import sendimgDisabled from '../assets/send-icon-disabled.png'
 import usericon from "../assets/user.png";
-import settingsicon from "../assets/settings.png";
+import settingsicon from "../assets/setting.png";
 import logoutIcon from '../assets/logout.png'
 import logoutHoveredIcon from '../assets/logout_red.png'
 import editIcon from "../assets/edit.png";
 import deleteIcon from "../assets/delete.png";
 import deleteHoverdIcon from "../assets/delete_hoverd.png";
 import editHoverdIcon from "../assets/edit_hoverd.png";
+import homeIcon from '../assets/homeWhite.png'
 import { sendMsgToOpenAi } from "../Controllers/openai";
 import axios from "axios";
 import "./Main.css";
@@ -249,6 +250,11 @@ const Main = ({ token, userId, onLogout }) => {
         <Sidebar isSettingsOpen={isSettingsOpen} toggleSettings={toggleSettings} />
 
         <div className="lowerSide">
+          <div className="settings" onClick={() => navigate('/')}>
+            <img src={homeIcon} alt="" className="homeimg"/>
+            Home
+          </div>
+
           <div className="settings" onClick={toggleSettings}>
             <img src={settingsicon} alt="" className="settingsimg"/>
             Settings

@@ -1,17 +1,22 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Login from "./Login";
 import Signup from "./SignUp";
 import "./Auth.css";
+import homeIcon from '../assets/home.png'
 
 const Auth = ({ onLogin }) => {
-  const [isRegistering, setIsRegistering] = useState(false);
+  const location = useLocation();
+  const formType = location.state?.formType || "login";
+
+  const [isRegistering, setIsRegistering] = useState(formType === "signup");
 
   return (
     <div className="auth-container">
 
       <Link to="/">
-        <button className="home-button">Home</button>
+        <img src={homeIcon} alt='home' className="home-button"/>
       </Link>
 
       <div className="auth-box">
