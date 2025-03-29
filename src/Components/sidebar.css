@@ -27,7 +27,8 @@
 
 .settings-header h2 {
     margin: 0;
-    font-size: 25px;
+    font-size: 30px;
+    color: #ffffff;
 }
 
 .close-icon {
@@ -51,10 +52,38 @@
     margin-bottom: 5px;
 }
 
+.settings-subtitle{
+    margin-top: 40px;
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #dce6ff;
+}
+
 .settings-content input {
     width: 100%;
     padding: 8px;
     border-radius: 4px;
     border: none;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
+
+.save-button {
+    display: flex;
+    background: #0d43cd;
+    border: none;
+    color: white;
+    padding: 1.5rem;
+    font-size: 1.5rem;
+    width: 36rem;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    border-radius: 0.5rem;
+  }
+  
+  .save-button:hover {
+    background-color: #09339f;
+    cursor: pointer;
+  }
