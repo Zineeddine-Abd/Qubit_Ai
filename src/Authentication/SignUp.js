@@ -41,7 +41,7 @@ const SignUp = ({ onToggle }) => {
 
   return (
     <>
-      <h2>Register</h2>
+      <h2>Register To Qubit</h2>
       <form onSubmit={handleSubmit} className="auth-form">
       <div className="input-group">
           <label htmlFor="Username">Username :</label>

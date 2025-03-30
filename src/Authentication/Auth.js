@@ -5,6 +5,7 @@ import Login from "./Login";
 import Signup from "./SignUp";
 import "./Auth.css";
 import homeIcon from '../assets/home.png'
+import qubitLogo from '../assets/Logo_No_BG.png'
 
 const Auth = ({ onLogin }) => {
   const location = useLocation();
@@ -20,6 +21,7 @@ const Auth = ({ onLogin }) => {
       </Link>
 
       <div className="auth-box">
+        <img src={qubitLogo} className="logo-qubit" alt="logo"/>
         {isRegistering ? (
           <>
             <Signup onToggle={() => setIsRegistering(false)} />

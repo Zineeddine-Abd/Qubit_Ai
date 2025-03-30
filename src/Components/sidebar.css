@@ -7,7 +7,6 @@
     background: #0d0d28;
     color: white;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
-    padding: 20px;
     z-index: 1000;
 
 
@@ -21,6 +20,11 @@
 
 .settings-header {
     display: flex;
+    width: 100%;
+    padding: 1.5rem;
+    border-bottom: 2px solid rgb(100, 100, 100);
+    border-radius: 1rem;
+    background-color: #010c19;
     justify-content: space-between;
     align-items: center;
 }
@@ -43,7 +47,8 @@
 }
 
 .settings-content {
-    margin-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .settings-content label {
@@ -53,19 +58,32 @@
 }
 
 .settings-subtitle{
-    margin-top: 40px;
+    margin-top: 30px;
     margin-bottom: 15px;
     font-size: 20px;
-    color: #dce6ff;
+    color: #ffffff;
 }
 
 .settings-content input {
     width: 100%;
-    padding: 8px;
-    border-radius: 4px;
     border: none;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 1.4rem;
+    outline: none;
+    padding: 8px;
     margin-bottom: 20px;
-}
+    transition: background 0.3s ease;
+  }
+  
+  .settings-content input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .settings-content input:focus {
+    background: rgba(255, 255, 255, 0.3);
+  }
 
 .save-button {
     display: flex;
@@ -81,9 +99,9 @@
     margin-top: 1rem;
     margin-bottom: 3rem;
     border-radius: 0.5rem;
-  }
+}
   
-  .save-button:hover {
+.save-button:hover {
     background-color: #09339f;
     cursor: pointer;
-  }
+}

@@ -25,13 +25,13 @@
 }
 
 .qubit-logo {
-    width: 90px;
+    width: 110px;
     height: auto;
     margin-right: 15px;
 }
 
 .qubit-title {
-    font-size: 50px;
+    font-size: 60px;
     font-weight: bold;
 }
 
@@ -45,13 +45,13 @@
     margin: 10px;
     border: none;
     border-radius: 8px;
-    font-family:Helvetica !important;
-    font-size: 20px !important;
+    font-family: Arial !important;
+    font-size: 25px !important;
     font-style: bold !important;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease-in-out;
     text-align: center;
-    min-width: 120px;
+    min-width: 180px;
 }
 
 .login-button {
@@ -74,9 +74,14 @@
 
 
 .footer {
+    display: inline;
+    width: 100%;
     justify-content: flex-end;
     text-align: center;
-    margin-bottom: 1.5rem;
+    background-color: #00050c;
+    border-radius: 2rem;
+    padding-top: 1.5rem ;
+    padding-bottom: 1.5rem;
 }
 
 .footer p {

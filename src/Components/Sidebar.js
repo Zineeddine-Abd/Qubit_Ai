@@ -23,10 +23,10 @@ function Sidebar({ isSettingsOpen, toggleSettings }) {
           <h3 className="settings-subtitle">Change your credentials :</h3>
 
           <label>New username :</label>
-          <input type="text" placeholder="username..." />
+          <input type="text" placeholder="Username" />
 
           <label>New password :</label>
-          <input type="password" placeholder="password..." />
+          <input type="password" placeholder="Password" />
 
           <button className="save-button">Save Changes</button>
         </div>

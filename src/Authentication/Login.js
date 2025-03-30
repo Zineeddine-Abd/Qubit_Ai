@@ -39,7 +39,7 @@ const Login = ({ onLogin }) => {
 
   return (
     <>
-      <h2>Login</h2>
+      <h2>Login To Qubit</h2>
       <form onSubmit={handleSubmit} className="auth-form">
         <div className="input-group">
           <label htmlFor="Username">Username :</label>
