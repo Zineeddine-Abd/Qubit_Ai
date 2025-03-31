@@ -23,7 +23,7 @@ const SignUp = ({ onToggle }) => {
       return;
     }
     try {
-      await axios.post("http://localhost:5000/signup", {
+      await axios.post(`${process.env.REACT_APP_BACKEND_BASEURL}/signup`, {
         username: trimmedUsername,
         email: trimmedEmail,
         password: trimmedPassword,

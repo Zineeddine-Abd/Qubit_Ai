@@ -53,7 +53,7 @@ const Main = ({ token, userId, onLogout }) => {
   useEffect(() => {
     if (token) {
       axios
-        .get("/loadChat", { params: { userId } })
+        .get(`${process.env.REACT_APP_BACKEND_BASEURL}/loadChat`, { params: { userId } })
         .then((response) => {
           setChats(response.data);
         })
@@ -103,7 +103,7 @@ const Main = ({ token, userId, onLogout }) => {
     });
     setChats(updatedChatsWithResponse);
 
-    axios.post("/saveChat", { userId, chats: updatedChatsWithResponse });
+    axios.post(`${process.env.REACT_APP_BACKEND_BASEURL}/saveChat`, { userId, chats: updatedChatsWithResponse });
   };
 
   const handleEnter = async (e) => {
@@ -127,7 +127,7 @@ const Main = ({ token, userId, onLogout }) => {
     setChats(updatedChats);
     setActiveChat(newChatId);
 
-    axios.post("/saveChat", { userId, chats: updatedChats});
+    axios.post(`${process.env.REACT_APP_BACKEND_BASEURL}/saveChat`, { userId, chats: updatedChats});
   };
 
   const switchChat = (chatId) => {
@@ -136,7 +136,7 @@ const Main = ({ token, userId, onLogout }) => {
 
   const deleteChat = async (chatId) => {
     try {
-      await axios.delete(`/deleteChat/${userId}/${chatId}`);
+      await axios.delete(`${process.env.REACT_APP_BACKEND_BASEURL}/deleteChat/${userId}/${chatId}`);
       setChats(chats.filter((chat) => chat.id !== chatId));
       setActiveChat(null)
     } catch (error) {
@@ -161,7 +161,7 @@ const Main = ({ token, userId, onLogout }) => {
     if (!newChatName.trim()) return; // Prevent empty names
   
     try {
-      await axios.put(`/editChat/${userId}/${chatId}`, { name: newChatName });
+      await axios.put(`${process.env.REACT_APP_BACKEND_BASEURL}/editChat/${userId}/${chatId}`, { name: newChatName });
   
       setChats(chats.map((chat) => 
         chat.id === chatId ? { ...chat, name: newChatName } : chat

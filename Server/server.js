@@ -176,8 +176,6 @@ app.delete("/deleteChat/:userId/:chatId", async (req, res) => {
   }
 });
 
-// get if the user has a premium attribute
-
 
 app.listen(5000, () => {
   console.log(`Server running`);
