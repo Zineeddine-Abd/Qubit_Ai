@@ -80,6 +80,7 @@
     text-align: center;
     background-color: #00050c;
     border-radius: 2rem;
+    border-top: 2px solid rgb(100, 100, 100);
     padding-top: 1.5rem ;
     padding-bottom: 1.5rem;
 }
