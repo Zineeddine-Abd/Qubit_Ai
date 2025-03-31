@@ -46,7 +46,6 @@
   
   .upperSide {
     padding: 2.5rem;
-    border-bottom: 2px solid rgb(100, 100, 100);
   }
   
   .upperSideTop {
@@ -125,6 +124,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-size: 1.2rem;
     padding: 8px;
     margin: 0.5rem 0;
     background: rgb(30, 40, 62);
@@ -175,6 +175,9 @@
   
   .lowerSide {
     display: flex;
+    background-color:rgb(1, 0, 6);
+    border-top: 2px solid rgb(100, 100, 100);
+    border-radius: 2rem;
     flex-direction: column;
     justify-content: left;
     padding: 1rem;
