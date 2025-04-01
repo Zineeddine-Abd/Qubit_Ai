@@ -12,6 +12,10 @@ app.use(cors({ origin: process.env.FRONTEND_BASEURL, credentials: true }));
 
 // Use secret from environment variables
 const SECRET_KEY = process.env.JWT_SECRET;
+if (!SECRET_KEY) {
+  console.error("JWT_SECRET is not defined in the environment variables!");
+  process.exit(1); // Stop the server
+}
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI, {
@@ -166,7 +170,7 @@ app.delete("/deleteChat/:userId/:chatId", async (req, res) => {
     const chat = await Chat.findOne({ userId });
     if (!chat) return res.status(404).json({ message: "Chat not found" });
 
-    chat.chats = chat.chats.filter((c) => c.id !== parseInt(chatId));
+    chat.chats = chat.chats.filter((c) => c.id !== chatId);
     await chat.save();
     res.status(200).json({ message: "Chat deleted successfully" });
   } catch (error) {
