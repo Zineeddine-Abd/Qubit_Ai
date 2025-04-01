@@ -1,3 +1,5 @@
+![Banner](./Qubit_Banner.png)
+
 # Qubit - IT-Related Chatbot
 
 **Qubit** is an intelligent, structured, and versatile IT chatbot designed to respond to a wide range of IT-related topics. With Qubit, users can easily explore technical concepts, and enhance their understanding of various IT domains.
