@@ -33,18 +33,18 @@ Qubit is a sophisticated IT chatbot built to provide answers in a structured for
 
 - **Structured Responses**: Qubit delivers its responses in a clear, organized structure to help users easily understand concepts.
 - **IT-Focused**: Only responds to IT-related topics, ensuring that the answers are relevant and focused.
-- **User Authentication**: Uses JWT for secure login and authentication.
+- **User Authentication**: Uses JWT for secure for secure token-based authentication and Bcrypt for password encryption.
 - **Chat History**: Saves chat history for users to continue conversations later.
 - **Interactive Conversations**: Engages users with multi-step conversations and context for a deeper dive into technical topics.
 ---
 
 ## How It Works
 
-Qubit is an advanced GPT-powered chatbot designed specifically for IT-related queries. It leverages the latest GPT-4o model, fine-tuned through prompt engineering techniques and context-aware processing to deliver structured and precise answers.
+Qubit leverages the latest GPT-4o model, fine-tuned through prompt engineering techniques and context-aware processing to deliver structured and precise answers.
 
 When a user submits a request, Qubit follows a systematic approach:
 
-1. **Analyzing the Query**: It identifies key terms and the intent behind the request.
+1. **Analyzing the Query**: It identifies key terms and the intent behind the request using chat context.
 2. **Retrieving Relevant Information**: It searches for accurate and relevant IT-related data.
 3. **Structuring the Response**: The answer is formatted in a clear and structured manner, ensuring clarity and ease of understanding.
 ---
@@ -61,31 +61,47 @@ To run Qubit locally, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/qubit.git
-   cd qubit
+   git clone https://github.com/Zineeddine-Abd/Qubit_Ai.git
+   cd Qubit_Ai
 
-2. install dependecies:
+2. install dependecies In The Clien's folder: change dirrectory to Client and install dependecies
    ```bash
+   cd Client
    npm install
 
-3. Set Up Environment Variables: Create a .env file in the root directory with the following:
+3. install dependecies In The Servers's folder: change dirrectory to Server and install dependecies
+   ```bash
+   cd Server
+   npm install
+
+4. Set Up Environment Variables Of The Client's Folder: Create a .env file in the Client directory with the following:
+   ```bash
+   REACT_APP_OPENAI_KEY=your_openai_key
+   REACT_APP_BACKEND_BASEURL=http://localhost:5000
+
+5. Set Up Environment Variables Of The Server's Folder: Create a .env file in the Server directory with the following:
    ```bash
    MONGO_URI=your_mongo_connection_string
    JWT_SECRET=your_secret_key
+   FRONTEND_BASEURL=http://localhost:3000
 
-4. Start the app:
+6. Start the server:
    ```bash
+   cd Server
    npm start
 
-The server should now be running on http://localhost:5000.
+7. Start the app:
+   ```bash
+   cd Client
+   npm start
 
 ## API Documentation
 (For Later)
 
 ## Technologies used
-- React: Frontend library for building user interfaces.
+- React: for building the frontend UI.
 - Node.js: Server-side runtime.
-- Express: Web framework for building REST APIs.
+- Express: for the backend API.
 - MongoDB & Mongoose: NoSQL database and ORM for data management.
 - JWT: Secure authentication using JSON Web Tokens.
 - Bcrypt: Password hashing for security.
