@@ -4,6 +4,7 @@
     left: 0;
     width: 400px;
     height: 100%;
+    border-right: 2px solid rgb(100, 100, 100);
     background: #0d0d28;
     color: white;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
@@ -12,6 +13,7 @@
 
     transform: translateX(-100%); /* Start hidden */
     transition: transform 0.4s ease-in-out; /* Smooth transition */
+    overflow-y: auto; /* Add scrolling for smaller screens */
 }
 
 .settings-sidebar.open {
@@ -27,6 +29,9 @@
     background-color: #010c19;
     justify-content: space-between;
     align-items: center;
+    position: sticky; /* Keep header visible when scrolling */
+    top: 0;
+    z-index: 2;
 }
 
 .settings-header h2 {
@@ -47,8 +52,9 @@
 }
 
 .settings-content {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 20px; /* Even padding all around */
+    display: flex;
+    flex-direction: column;
 }
 
 .settings-content label {
@@ -92,16 +98,107 @@
     color: white;
     padding: 1.5rem;
     font-size: 1.5rem;
-    width: 36rem;
+    width: 100%; /* Changed from fixed width to be responsive */
+    max-width: 36rem; /* Added max-width instead */
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
-    margin-top: 11rem;
-    margin-bottom: 3rem;
+    margin: 2rem auto; /* Simplified margin */
+    border-radius: 0.5rem;
     border-radius: 0.5rem;
 }
   
 .save-button:hover {
     background-color: #09339f;
     cursor: pointer;
+}
+
+/* Add responsive styles for settings sidebar */
+@media (max-width: 768px) {
+    .settings-sidebar {
+        width: 300px; /* Smaller width on tablets */
+    }
+    
+    .settings-header h2 {
+        font-size: 24px;
+    }
+    
+    .settings-subtitle {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 576px) {
+    .settings-sidebar {
+        width: 100%; /* Full width on mobile */
+    }
+    
+    .settings-header {
+        padding: 1.2rem;
+    }
+    
+    .settings-header h2 {
+        font-size: 20px;
+    }
+    
+    .close-icon {
+        width: 24px;
+    }
+    
+    .settings-content label {
+        font-size: 12px;
+    }
+    
+    .settings-content input {
+        font-size: 1.2rem;
+        padding: 6px;
+    }
+    
+    .save-button {
+        padding: 1.2rem;
+        font-size: 1.3rem;
+    }
+}
+
+/* Add settings overlay for mobile */
+.settings-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+}
+
+.settings-overlay.active {
+    opacity: 1;
+    display: block;
+}
+
+@media (max-width: 360px) {
+    .settings-sidebar {
+        width: 100%;
+    }
+    
+    .settings-content {
+        padding: 15px;
+    }
+    
+    .settings-subtitle {
+        font-size: 16px;
+        margin-top: 20px;
+    }
+    
+    .settings-content input {
+        margin-bottom: 15px;
+    }
+    
+    .save-button {
+        padding: 1rem;
+        font-size: 1.2rem;
+        margin-top: 1.5rem;
+    }
 }

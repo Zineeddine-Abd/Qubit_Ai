@@ -15,6 +15,7 @@ import deleteIcon from "../assets/delete.png";
 import deleteHoverdIcon from "../assets/delete_hoverd.png";
 import editHoverdIcon from "../assets/edit_hoverd.png";
 import homeIcon from '../assets/homeWhite.png'
+import menuIcon from '../assets/menu.png';
 import { sendMsgToOpenAi } from "../Controllers/openai";
 import axios from "axios";
 import "./Main.css";
@@ -29,16 +30,30 @@ const Main = ({ token, userId, onLogout }) => {
     setInput("");
     setLoading(false);
     onLogout(); 
-    axios.post("/saveChat", { userId, chats});
+    axios.post(`${process.env.REACT_APP_BACKEND_BASEURL}/saveChat`, { userId, chats});
     
     navigate("/auth");
+  };
+
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+
+   // Toggle sidebar for mobile view
+   const toggleSidebar = () => {
+    setSidebarOpen(!isSidebarOpen);
+  };
+
+  // Close sidebar when clicking outside on mobile
+  const handleOverlayClick = () => {
+    setSidebarOpen(false);
   };
 
   const [input, setInput] = useState("");
   const [chats, setChats] = useState([]);
 
   const [activeChat, setActiveChat] = useState(null);
+  
   const [loading, setLoading] = useState(false);
+  // Set active chat
   useEffect(() => {
     if (chats.length > 0 && activeChat === null) {
       setActiveChat(chats[0].id);
@@ -47,9 +62,7 @@ const Main = ({ token, userId, onLogout }) => {
     }
   }, [chats]);
   
-
-  const msgEnd = useRef(null); //For Auto-Scrolling
-
+  // Load chats on mount
   useEffect(() => {
     if (token) {
       axios
@@ -63,10 +76,14 @@ const Main = ({ token, userId, onLogout }) => {
     }
   }, [token, userId]);
 
+  const msgEnd = useRef(null);
+
+  // Auto-scroll to bottom of chat
   useEffect(() => {
     msgEnd.current?.scrollIntoView();
   }, [chats.find((chat) => chat.id === activeChat)?.messages?.length]);
 
+  // Send message function
   const handleSend = async () => {
     const text = input.trim();
     if (!text || activeChat === null) return;
@@ -106,10 +123,14 @@ const Main = ({ token, userId, onLogout }) => {
     axios.post(`${process.env.REACT_APP_BACKEND_BASEURL}/saveChat`, { userId, chats: updatedChatsWithResponse });
   };
 
+  // Handle keyboard entry
   const handleEnter = async (e) => {
     if (e.key === "Enter") await handleSend();
   };
 
+  const chatInputRef = useRef(null); // For focusing the input
+
+  // Add new chat
   const addNewChat = () => {
     const newChatId = uuidv4();
     const newChat = {
@@ -126,12 +147,24 @@ const Main = ({ token, userId, onLogout }) => {
     const updatedChats = [...chats, newChat]
     setChats(updatedChats);
     setActiveChat(newChatId);
+    setSidebarOpen(false); // Close sidebar on mobile after creating new chat
 
     axios.post(`${process.env.REACT_APP_BACKEND_BASEURL}/saveChat`, { userId, chats: updatedChats});
+
+    // Focus on the input field after creating a new chat
+    setTimeout(() => {
+      chatInputRef.current?.focus();
+    }, 100);
   };
 
   const switchChat = (chatId) => {
     setActiveChat(chatId);
+    setSidebarOpen(false); // Close sidebar on mobile after switching chats
+
+     // Focus on the input field after switching chats
+     setTimeout(() => {
+      chatInputRef.current?.focus();
+    }, 100);
   };
 
   const deleteChat = async (chatId) => {
@@ -179,11 +212,22 @@ const Main = ({ token, userId, onLogout }) => {
     
   const toggleSettings = () => {
     setSettingsOpen(!isSettingsOpen);
+    setSidebarOpen(false); // Close main sidebar when opening settings
   };
 
   return (
     <div className="App">
-      <div className="sidebar">
+
+      <button className="mobile-menu-toggle" onClick={toggleSidebar}>
+        <img src={menuIcon} alt="Menu" style={{ width: '20px', height: '20px' }} />
+      </button>
+
+      <div 
+        className={`sidebar-overlay ${isSidebarOpen ? 'active' : ''}`} 
+        onClick={handleOverlayClick}
+      ></div>
+
+      <div className={`sidebar ${isSidebarOpen ? 'active' : ''}`}>
         <div className="upperSide">
           <div className="upperSideTop">
             <img src={qubitlogo} alt="logo" className="logo" />
@@ -272,6 +316,7 @@ const Main = ({ token, userId, onLogout }) => {
             onMouseEnter={() => setHoveredLogout(true)} 
             onMouseLeave={() => setHoveredLogout(false)} 
           />    
+
         <div className="chats">
           {activeChatMessages.map((message, i) => (
             <div key={i} className={message.isBot ? "chat bot" : "chat"}>
@@ -300,6 +345,7 @@ const Main = ({ token, userId, onLogout }) => {
               type="text"
               placeholder="What do you want to know ?"
               value={input}
+              ref={chatInputRef}
               onKeyDown={handleEnter}
               onChange={(e) => {
                 setInput(e.target.value);
