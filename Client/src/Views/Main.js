@@ -212,7 +212,6 @@ const Main = ({ token, userId, onLogout }) => {
     
   const toggleSettings = () => {
     setSettingsOpen(!isSettingsOpen);
-    setSidebarOpen(false); // Close main sidebar when opening settings
   };
 
   return (
