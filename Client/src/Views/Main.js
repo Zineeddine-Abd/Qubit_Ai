@@ -68,11 +68,18 @@ const Main = ({ token, userId, onLogout }) => {
       axios
         .get(`${process.env.REACT_APP_BACKEND_BASEURL}/loadChat`, { params: { userId } })
         .then((response) => {
-          setChats(response.data);
+          const serverChats = response.data;
+
+          if (Array.isArray(serverChats) && serverChats.length === 0) {
+            addNewChat();
+          }else{
+            setChats(serverChats);
+          }
         })
         .catch((error) => {
           console.error(error);
         });
+      
     }
   }, [token, userId]);
 

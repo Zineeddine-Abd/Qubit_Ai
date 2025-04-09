@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import qubitLogo from "../assets/Logo_No_BG.png";
 import githubLogo from '../assets/github.png';

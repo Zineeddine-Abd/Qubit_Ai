@@ -79,6 +79,10 @@ app.post("/signup", async (req, res) => {
     await user.save();
     res.status(201).send("User registered successfully");
 
+    // Initialize an empty chat document for the new user
+    const newChat = new Chat({ userId: user._id, chats: [] });
+    await newChat.save();
+
   } catch (error) {
     console.error("Signup error:", error);
     res.status(500).send("Server error");
@@ -130,15 +134,20 @@ app.get("/loadChat", async (req, res) => {
 // Save Chat Route
 app.post("/saveChat", async (req, res) => {
   const { userId, chats } = req.body;
-  let chat = await Chat.findOne({ userId });
-
-  if (!chat) {
-    chat = new Chat({ userId, chats });
-  } else {
-    chat.chats = chats;
+  
+  try {
+    // Use findOneAndUpdate with upsert option
+    await Chat.findOneAndUpdate(
+      { userId }, 
+      { userId, chats },
+      { upsert: true, new: true }
+    );
+    
+    res.status(200).send("Chat saved");
+  } catch (error) {
+    console.error("Error saving chat:", error);
+    res.status(500).send("Server error");
   }
-  await chat.save();
-  res.status(200).send("Chat saved");
 });
 
 // Edit Chat Name
